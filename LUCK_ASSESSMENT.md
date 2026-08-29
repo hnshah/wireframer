@@ -98,7 +98,7 @@ The precursors now exist:
 - public shareable Grok Bots
 - widespread dissatisfaction with generic AI-generated UI
 
-The window for generic wireframe generation is already closing because native design products can generate frames themselves. The window for a trusted cross-runtime *design method* is open now.
+The window for generic wireframe generation is already closing because native design products can generate frames themselves. The window for a trusted cross-runtime design method is open now.
 
 **Design response:** ship the method publicly before the category collapses into tool-native generation.
 
@@ -134,3 +134,106 @@ The strongest moat is not pixels. It is an improving corpus of product decisions
 6. Publish before/after examples showing product-model improvements, not pretty screens.
 7. Keep Figma as an execution target, not a dependency.
 8. Split adjacent roles only after real usage shows stable boundaries.
+
+---
+
+# Second pass after repo creation — 2026-08-29
+
+The first pass asked whether Wireframer had the right ingredients. The repo now exists, the skill is portable, the eval loop is explicit, and public distribution surfaces are available. The binding constraint has moved.
+
+## Binding constraint now — circulation
+
+The most important failure to prevent is pooled fortune.
+
+A good Wireframer run currently produces a useful conversation and a useful design artifact. Both can terminate inside the runtime that created them. That forces downstream humans and agents to reconstruct the job, object model, interaction choice, state coverage, and corrections.
+
+The new assembly should produce a **portable design record** with every substantive run.
+
+That record becomes the circulatory object connecting:
+
+- the product brief
+- Figma
+- Grok Bot
+- coding agents
+- product review
+- usability testing
+- human corrections
+- future Wireframer runs
+- the public eval corpus
+
+A wireframe can be replaced by another renderer. A decision record can survive the renderer.
+
+## Structural compatibility move — one-line install
+
+The open Skills CLI discovers a root `SKILL.md`. Wireframer already has the right repository shape.
+
+That makes this possible:
+
+```bash
+npx skills add hnshah/wireframer
+```
+
+This should become a primary install path for compatible agent runtimes. Figma and Grok Bot remain additional surfaces with their own native setup.
+
+Lower reconstruction cost increases the number of places Wireframer can enter without creating runtime-specific forks.
+
+## Path-sensitivity move — public beta before perfect benchmark
+
+Figma's public skill ecosystem is newly available. Waiting for the full 30-task benchmark before allowing public use would trade away path sensitivity and circulation.
+
+The better sequence is:
+
+1. pass the canonical functional evals
+2. clear critical Grok Bot and Figma execution failures
+3. publish a clearly labeled public beta
+4. invite reproducible failures
+5. run consistency, adversarial, and blinded benchmark work while real usage starts
+6. call the method v0.1 only after the stronger evidence exists
+
+This keeps rigor without making rigor a reason to miss the early distribution window.
+
+## Niche-construction move — learn from success too
+
+Failure collection is necessary but incomplete.
+
+The more defensible corpus includes decisions that survived product review, usability testing, implementation, or launch. A future product-design intelligence layer should know which interaction choices survived contact with reality, not only which outputs people disliked.
+
+The design record should therefore be able to accumulate outcome links over time.
+
+## Integration move — define the handoff contract early
+
+Wireframer should become easy for adjacent skills and agents to consume.
+
+The design record is that contract.
+
+A future UX Critic can read it before revising an interface. A builder can read it before implementation. A research agent can attach evidence to its assumptions. A design-system adapter can map its screen/state requirements to components without changing the product model.
+
+This creates integration density without turning Wireframer into a mega-skill.
+
+## Solvency move — prevent runtime drift
+
+Figma, Grok Bot, local agent installs, and future marketplaces can each hold a copy of the method. That creates a new dissipation risk.
+
+Every runtime should expose the canonical skill version. Updates should originate in the repository, pass regression tests, then propagate outward. Runtime-specific profiles stay thin.
+
+The design record should also record the skill version and runtime so failures remain reproducible after the method changes.
+
+## New highest-leverage sequence
+
+1. Keep `SKILL.md` canonical.
+2. Make the portable design record part of every substantive run.
+3. Add the one-line Agent Skills install path.
+4. Pass the canonical eval suite in Grok Bot and Figma.
+5. Publish both as public beta once critical failures are gone.
+6. Capture failures and successful downstream outcomes.
+7. Run the deeper benchmark in the open.
+8. Promote repeated product mechanics into a shared pattern library only after evidence accumulates.
+9. Add adjacent specialist skills only when real corrections reveal stable boundaries.
+
+## Updated verdict
+
+Wireframer should not optimize to become the best wireframe generator.
+
+It should optimize to become the **lowest-cost way for product-design decisions to become explicit, portable, testable, and reusable across agent runtimes**.
+
+That assembly has more viable next steps than a rendering tool and creates the conditions for the broader Product Designer system to emerge from evidence rather than ambition.
