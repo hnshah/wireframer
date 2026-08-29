@@ -14,26 +14,27 @@ metadata:
 
 Wireframer turns product ambiguity into an interaction model that can be inspected, criticized, tested, and rendered as low-fidelity wireframes.
 
-The wireframe is not the product. It is the visible residue of product-design reasoning.
+The wireframe is the visible residue of the product decisions underneath it.
 
 ## Core doctrine
 
 1. **Design behavior before appearance.** Do not start with layout, components, or visual style. First establish what the user is trying to accomplish and how the product behaves.
 2. **Reason from jobs and objects.** Identify the primary user job, trigger, desired outcome, core objects, object relationships, and actions before choosing screens.
 3. **Choose an interaction model before arranging screens.** Navigation, command, feed, inbox, canvas, wizard, queue, direct manipulation, conversational control, and other interaction models create different products even when they expose the same features.
-4. **Prefer fewer product concepts, not more UI.** Remove screens, decisions, controls, and states that do not earn their existence.
+4. **Prefer fewer product concepts.** Remove screens, decisions, controls, and states that do not earn their existence.
 5. **Make important states explicit.** Empty, loading, partial, error, success, permission, destructive, undo/recovery, stale-data, and handoff states are part of the product.
 6. **Use realistic language.** Prefer plausible labels and example content over lorem ipsum. Copy is interface architecture.
 7. **Expose assumptions without making them blockers.** When information is missing, make the smallest reasonable assumption, label it, and continue.
 8. **Explore when the product model is genuinely ambiguous.** Produce 2–3 materially different interaction models, not cosmetic variants.
-9. **Use references for mechanics, not imitation.** Extract why a pattern works and adapt the mechanic to the current job. Do not copy another product's visual identity.
+9. **Use references for mechanics.** Extract why a pattern works and adapt the mechanic to the current job. Do not copy another product's visual identity.
 10. **Stay low fidelity until the product logic earns polish.** Grayscale, restrained typography, minimal decoration, and system primitives are defaults. Visual styling must not hide product decisions.
 11. **Critique before delivery.** Score the wireframe, identify the most consequential failures, revise them, and expose remaining uncertainty.
 12. **Make the artifact easy to reconstruct.** Use reusable primitives, explicit hierarchy, consistent spacing, and native design-tool structure when executing in Figma or another canvas.
+13. **Leave a portable decision record.** Preserve the product interpretation, chosen model, important alternatives, state coverage, critique, and consequential human corrections in a form another human or agent can pick up.
 
 ## Inputs
 
-Accept any combination of:
+Accept any combination of
 
 - product idea or feature request
 - user/problem statement
@@ -50,11 +51,11 @@ Do not require all inputs. Do not turn discovery into an interrogation session.
 
 ## Working sequence
 
-Follow these stages in order. Collapse stages only when the problem is trivial.
+Follow these stages in order. Collapse stages when the problem is genuinely small.
 
 ### 1. Interpret the product problem
 
-Produce a compact design brief:
+Produce a compact design brief with
 
 - primary user
 - trigger/context
@@ -71,7 +72,7 @@ Distinguish facts from assumptions.
 
 Identify the smallest set of durable product objects.
 
-For each object, determine:
+For each object, determine
 
 - what it represents
 - important attributes
@@ -85,7 +86,7 @@ If the proposed feature vocabulary is inconsistent, normalize it before drawing 
 
 Write the shortest plausible happy path from trigger to outcome.
 
-Then identify:
+Then identify
 
 - recurring/frequent paths
 - branch points
@@ -101,7 +102,7 @@ Prefer task completion over feature exposure.
 
 Ask which interaction model best matches the user's mental model and frequency of use.
 
-Examples include:
+Examples include
 
 - object + detail
 - inbox / queue
@@ -118,7 +119,7 @@ Examples include:
 
 If more than one model is credible, create 2–3 alternatives that differ in behavior, not decoration.
 
-For each alternative, state:
+For each alternative, state
 
 - central metaphor/model
 - primary action
@@ -134,7 +135,7 @@ Choose one and explain why.
 
 List only screens or surfaces required to complete the job.
 
-For each screen state:
+For each screen state, establish
 
 - purpose
 - primary action
@@ -147,7 +148,7 @@ Delete screens that exist only because familiar products have them.
 
 ### 6. Wireframe
 
-Default wireframe style:
+Default wireframe style
 
 - grayscale
 - one type family
@@ -161,7 +162,7 @@ Default wireframe style:
 - reusable components/primitives
 - auto-layout / constraints when available
 
-Every frame should answer in roughly two seconds:
+Every frame should answer in roughly two seconds
 
 1. Where am I?
 2. What is happening?
@@ -171,7 +172,7 @@ When using Figma or another design tool, create native editable structure rather
 
 ### 7. Complete the state matrix
 
-For every important action or object, check relevant states:
+For every important action or object, check relevant states
 
 - initial / default
 - empty
@@ -185,7 +186,7 @@ For every important action or object, check relevant states:
 - stale / conflicting data
 - AI uncertainty / needs approval, when relevant
 
-Do not draw every state when unnecessary. Explicitly document omitted states.
+Do not draw every state when unnecessary. Explicitly document important omitted states.
 
 ### 8. Critique
 
@@ -193,7 +194,7 @@ Score the result using the rubric below.
 
 Prioritize failures by impact on task success, not visual annoyance.
 
-For each important failure state:
+For each important failure, capture
 
 - problem
 - why it matters
@@ -203,7 +204,9 @@ Revise the top failures once before delivery. A second revision is allowed if th
 
 ### 9. Return the design record
 
-Return, in this order:
+Return a design record that can travel independently of the original conversation.
+
+Use this order
 
 1. **Design interpretation** — one paragraph
 2. **Assumptions** — only consequential assumptions
@@ -215,7 +218,17 @@ Return, in this order:
 8. **Wireframes / design-tool link or frames**
 9. **State coverage**
 10. **Critique score + changes made**
-11. **Questions worth testing** — questions for research/evaluation, not blockers
+11. **Questions worth testing** — research/evaluation questions rather than blockers
+
+When the runtime can create files, save a Markdown design record such as `wireframer-design-record.md`. Include the Wireframer skill version, runtime, artifact link when available, and status. When file creation is unavailable, return the same structure inline.
+
+Scale the record to the work. A tiny interaction does not need a long document.
+
+The detailed portable schema lives in `references/DESIGN_RECORD.md` when references are available. The structure above is sufficient when the runtime only has this file.
+
+Do not include hidden chain-of-thought or private model reasoning. Preserve conclusions, evidence, assumptions, tradeoffs, and observable corrections.
+
+When a human materially changes a product decision, preserve a compact correction record with the original decision, corrected direction, failure category, runtime, and skill version. Repeated corrections should become eval candidates.
 
 ## Wireframer rubric — 100 points
 
@@ -237,9 +250,9 @@ Return, in this order:
 
 ### Score interpretation
 
-- **95–100** exceptional: unusually clear product thinking; little to remove or repair
-- **90–94** strong: ready for product discussion or usability testing
-- **80–89** useful: directionally sound but material issues remain
+- **95–100** exceptional — unusually clear product thinking with little to remove or repair
+- **90–94** strong — ready for product discussion or usability testing
+- **80–89** useful — directionally sound with material issues remaining
 - **70–79** substantial revision required
 - **<70** reject the current interaction model and reconsider fundamentals
 
@@ -248,55 +261,80 @@ Never inflate the score to please the user.
 ## Failure modes to avoid
 
 ### Screenshot theater
+
 The output looks like software but does not specify behavior, states, or task completion.
 
 ### Dashboard reflex
+
 A vague product request becomes sidebar + cards + charts without evidence that dashboard navigation fits the job.
 
 ### Component-first design
+
 The available design system determines the product model instead of supporting it.
 
 ### Feature inventory
+
 Every requested capability gets exposed simultaneously rather than sequenced around user intent.
 
 ### Cosmetic alternatives
+
 Three options differ in spacing or card arrangements but have the same interaction model.
 
 ### Happy-path only
+
 The primary mockup works only when data is perfect, permissions are granted, and nothing fails.
 
 ### AI chat default
+
 An AI feature becomes a blank chat box when a structured, proactive, or mixed interaction would better fit the job.
 
 ### Reference cosplay
+
 A named product reference is copied visually instead of decomposed into reusable mechanics.
 
 ### Premature polish
+
 Visual design makes a weak interaction model feel finished before it has been tested.
+
+### Stranded artifact
+
+The useful product decisions remain trapped inside a screenshot, design file, or chat transcript, forcing the next person or agent to reconstruct the reasoning from scratch.
 
 ## Optional specialist passes
 
 Use specialist skills when available, but keep Wireframer's product model canonical.
 
-- **Impeccable**: use `shape`, `critique`, `distill`, `harden`, `onboard`, `clarify`, and related passes after the interaction model exists. Use its high-fidelity design guidance only when asked to move beyond wireframes.
-- **Anthropic frontend-design**: use only for deliberate visual direction / high-fidelity implementation, not to choose the underlying product model.
-- **Design critique / accessibility specialists**: use to strengthen review and state coverage.
-- **Figma MCP / design-system skills**: use for native execution, components, variables, and auto-layout.
+- **Impeccable** — use `shape`, `critique`, `distill`, `harden`, `onboard`, `clarify`, and related passes after the interaction model exists. Use its high-fidelity design guidance only when asked to move beyond wireframes.
+- **Anthropic frontend-design** — use only for deliberate visual direction / high-fidelity implementation, not to choose the underlying product model.
+- **Design critique / accessibility specialists** — use to strengthen review and state coverage.
+- **Figma MCP / design-system skills** — use for native execution, components, variables, and auto-layout.
 
 If a specialist recommendation conflicts with the chosen task model, explain the conflict rather than silently reshaping the product.
 
 ## Evidence and iteration
 
-When users correct a wireframe, capture the correction as one of:
+When users correct a wireframe, classify the correction as closely as possible
 
-- product assumption corrected
-- object-model correction
-- interaction-model correction
-- hierarchy correction
-- state omission
-- copy correction
+- product interpretation
+- unsupported assumption
+- object model
+- task flow
+- interaction model
+- information architecture
+- hierarchy
+- missing state
+- permissions
+- error or recovery
+- UX copy
+- accessibility
+- reference misuse
+- premature styling
+- Figma execution
 - visual preference
+- other
+
+Preserve the correction before revising the artifact when the runtime allows it.
 
 Recurring corrections should become rubric changes, examples, or evals rather than remaining conversational memory only.
 
-The skill should improve from real design outcomes, not from accumulating stylistic preferences indiscriminately.
+Successful outcomes matter too. When a direction reaches review, usability testing, implementation, or launch, keep the design record connected to that outcome when possible. The skill should learn from decisions that survived contact with reality, not only from stylistic preferences.
