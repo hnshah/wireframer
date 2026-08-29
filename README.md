@@ -9,7 +9,7 @@ It works through the user job, product objects, task flow, interaction model, sc
 This repository is the canonical source for the skill, its evals, and the runtime setup for Grok Bot and Figma.
 
 > Current status  
-> v0.2 Launch Candidate. We are testing it rigorously before the first public release.
+> v0.2 Launch Candidate. We are testing it rigorously before the first public beta.
 
 ## What Wireframer does
 
@@ -25,18 +25,36 @@ Give Wireframer a product idea, feature request, workflow, screenshot, existing 
 8. cover consequential states and recovery paths
 9. critique the result with a 100-point rubric
 10. revise the highest-impact failures
+11. leave a portable design record that another human or agent can pick up
 
-The output is meant for product review, design discussion, and usability testing.
+The output is meant for product review, design discussion, usability testing, and implementation handoff.
 
 ## Why this exists
 
-Generating a screen is getting cheap. Product decisions still determine whether the screen helps anyone accomplish the job.
+Generating a screen is getting cheap. The product decisions underneath it still determine whether someone can accomplish the job.
 
-Wireframer makes those decisions explicit enough to inspect and improve. It treats rendering as an execution layer that can change as tools improve.
+Wireframer makes those decisions explicit enough to inspect and improve. Rendering stays replaceable as design tools and agent runtimes change.
+
+## Install as an agent skill
+
+The repository uses the open Agent Skills format. The Skills CLI discovers a root `SKILL.md`, so compatible agents can install the canonical skill directly from GitHub.
+
+```bash
+npx skills add hnshah/wireframer
+```
+
+Use `-g` to make the skill available globally across projects.
+
+```bash
+npx skills add hnshah/wireframer -g
+```
+
+Runtime-specific setup for Grok Bot and Figma is below.
 
 ## Repository map
 
 - [`SKILL.md`](./SKILL.md) contains the canonical portable skill
+- [`references/DESIGN_RECORD.md`](./references/DESIGN_RECORD.md) defines the portable decision record produced by Wireframer
 - [`BOT_PROFILE.md`](./BOT_PROFILE.md) contains the standing profile for the Grok Bot
 - [`GROK_BOT_SETUP.md`](./GROK_BOT_SETUP.md) covers Grok Bot setup and sharing
 - [`FIGMA_SKILL_SETUP.md`](./FIGMA_SKILL_SETUP.md) covers Figma Agent and Figma Make setup
@@ -57,17 +75,26 @@ Wireframer makes those decisions explicit enough to inspect and improve. It trea
           │           │           │
           ▼           ▼           ▼
       Grok Bot   Figma Agent   other agents
-          │           │
-          └─────┬─────┘
-                ▼
-           real usage
-                ▼
-       failures + corrections
-                ▼
-              evals
-                ▼
+          │           │           │
+          └───────────┼───────────┘
+                      ▼
+             wireframe + design record
+                      │
+              ┌───────┴────────┐
+              ▼                ▼
+        product review     implementation
+              │
+              ▼
+     corrections + outcomes
+              │
+              ▼
+             evals
+              │
+              ▼
           better skill
 ```
+
+The design record keeps the job, object model, chosen interaction model, important states, critique, and human corrections from getting stranded inside one Figma file or Bot conversation.
 
 The skill stays canonical. Runtime profiles should remain thin. Improvements usually belong in `SKILL.md` and the eval suite before they flow into Grok Bot, Figma, or another agent.
 
@@ -112,21 +139,39 @@ Wireframer favors
 - reusable interaction mechanics
 - low fidelity until the product logic holds up
 - self-critique before delivery
+- a portable record of the decisions that matter
 
 It actively checks for common failure modes such as dashboard reflex, blank-chat reflex, reference-product cosplay, cosmetic alternatives, happy-path-only flows, and premature visual polish.
 
 ## Release standard
 
-The first public release requires
+We use two gates so testing can remain rigorous while real usage starts early enough to teach the system.
 
-- functional eval mean of at least 85 out of 100
-- zero critical failures in the canonical eval set
-- useful progress without unnecessary clarification in at least 90 percent of canonical cases
-- behaviorally distinct alternatives in at least 80 percent of cases that warrant exploration
-- measurable improvement from the self-critique pass
-- stable core product logic across repeated runs
-- at least 21 wins across 30 task-level blind comparisons against the unskilled baseline
-- a clean public Bot configuration with no private data or credentials
+### Public beta gate
+
+Before the public Grok Bot and Figma Community beta go live
+
+- run the full canonical eval set
+- reach a mean functional score of at least 85 out of 100
+- have zero critical failures in the canonical eval set
+- make useful progress without unnecessary clarification in at least 90 percent of canonical cases
+- confirm Figma and Grok Bot work from fresh sessions
+- confirm the design record can be reconstructed outside the originating runtime
+- complete the public configuration and privacy audit
+
+The beta should explicitly invite reproducible failures.
+
+### v0.1 release gate
+
+Before calling the method stable enough for v0.1
+
+- pass the consistency suite across repeated runs
+- pass the adversarial suite without a repeated critical pattern
+- show measurable improvement from self-critique
+- produce behaviorally distinct alternatives in at least 80 percent of cases that warrant exploration
+- win at least 21 of 30 task-level blind comparisons against the unskilled baseline
+- verify the one-line agent install from a fresh environment
+- classify and review benchmark losses
 
 The full protocol lives in [`evals/BENCHMARK.md`](./evals/BENCHMARK.md) and [`LAUNCH_CHECKLIST.md`](./LAUNCH_CHECKLIST.md).
 
@@ -138,7 +183,7 @@ When Wireframer gets a product decision wrong, open an issue with the input, the
 
 Useful failure categories include product interpretation, object model, task flow, interaction model, hierarchy, missing states, permissions, recovery, copy, accessibility, reference misuse, premature styling, and Figma execution.
 
-The goal is to build a growing record of product decisions that improves the skill over time.
+Successful runs matter too. Preserve the design record when a direction reaches product review, testing, implementation, or launch. Those outcomes can eventually teach Wireframer which product decisions survived contact with reality.
 
 ## License
 
