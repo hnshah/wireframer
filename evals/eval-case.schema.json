@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hnshah/wireframer/blob/main/evals/eval-case.schema.json",
+  "title": "Wireframer eval case",
+  "description": "Portable, machine-validatable input contract for one Wireframer evaluation case.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "eval_id",
+    "eval_type",
+    "title",
+    "prompt",
+    "must",
+    "fail_if"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "eval_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]*$"
+    },
+    "eval_type": {
+      "enum": ["functional", "adversarial", "benchmark", "consistency", "figma", "custom"]
+    },
+    "title": {"type": "string", "minLength": 1},
+    "prompt": {"type": "string", "minLength": 1},
+    "must": {"type": "string", "minLength": 1},
+    "fail_if": {"type": "string", "minLength": 1},
+    "reference_uris": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

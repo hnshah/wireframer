@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hnshah/wireframer/blob/main/evals/eval-result.schema.json",
+  "title": "Wireframer eval result",
+  "description": "Portable, machine-validatable record for one Wireframer evaluation run.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "eval_id",
+    "eval_type",
+    "run",
+    "input",
+    "artifacts",
+    "rubric",
+    "checks",
+    "critique",
+    "review",
+    "failure_categories"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "eval_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]*$"
+    },
+    "eval_type": {
+      "enum": ["functional", "adversarial", "benchmark", "consistency", "figma", "custom"]
+    },
+    "run": {"$ref": "#/$defs/run"},
+    "input": {"$ref": "#/$defs/input"},
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/artifact"}
+    },
+    "rubric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["before_critique", "after_critique"],
+      "properties": {
+        "before_critique": {"$ref": "#/$defs/rubric_result"},
+        "after_critique": {"$ref": "#/$defs/rubric_result"}
+      }
+    },
+    "checks": {"$ref": "#/$defs/checks"},
+    "critique": {"$ref": "#/$defs/critique"},
+    "review": {"$ref": "#/$defs/review"},
+    "failure_categories": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "notes": {"type": "string"}
+  },
+  "$defs": {
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "started_at", "runtime", "model", "skill_version", "condition"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "started_at": {"type": "string", "format": "date-time"},
+        "runtime": {"type": "string", "minLength": 1},
+        "model": {"type": "string", "minLength": 1},
+        "skill_version": {"type": "string", "minLength": 1},
+        "condition": {
+          "enum": ["wireframer", "unskilled_baseline", "native_generator", "ablation"]
+        },
+        "seed": {"type": ["integer", "string", "null"]}
+      }
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prompt", "source"],
+      "properties": {
+        "prompt": {"type": "string", "minLength": 1},
+        "source": {
+          "enum": ["canonical", "adversarial", "benchmark", "real_brief", "custom"]
+        },
+        "reference_uris": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "uri"],
+      "properties": {
+        "kind": {
+          "enum": ["design_record", "wireframe", "figma_file", "reasoning_record", "other"]
+        },
+        "uri": {"type": "string", "minLength": 1},
+        "label": {"type": "string", "minLength": 1}
+      }
+    },
+    "rubric_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scores", "total"],
+      "properties": {
+        "scores": {"$ref": "#/$defs/rubric_scores"},
+        "total": {"type": "number", "minimum": 0, "maximum": 100}
+      }
+    },
+    "rubric_scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "job_clarity",
+        "interaction_model",
+        "information_architecture",
+        "task_efficiency",
+        "hierarchy",
+        "discoverability",
+        "state_completeness",
+        "error_and_recovery",
+        "progressive_disclosure",
+        "consistency",
+        "ux_copy",
+        "accessibility",
+        "visual_restraint"
+      ],
+      "properties": {
+        "job_clarity": {"type": "number", "minimum": 0, "maximum": 15},
+        "interaction_model": {"type": "number", "minimum": 0, "maximum": 15},
+        "information_architecture": {"type": "number", "minimum": 0, "maximum": 10},
+        "task_efficiency": {"type": "number", "minimum": 0, "maximum": 10},
+        "hierarchy": {"type": "number", "minimum": 0, "maximum": 10},
+        "discoverability": {"type": "number", "minimum": 0, "maximum": 8},
+        "state_completeness": {"type": "number", "minimum": 0, "maximum": 8},
+        "error_and_recovery": {"type": "number", "minimum": 0, "maximum": 6},
+        "progressive_disclosure": {"type": "number", "minimum": 0, "maximum": 5},
+        "consistency": {"type": "number", "minimum": 0, "maximum": 5},
+        "ux_copy": {"type": "number", "minimum": 0, "maximum": 3},
+        "accessibility": {"type": "number", "minimum": 0, "maximum": 3},
+        "visual_restraint": {"type": "number", "minimum": 0, "maximum": 2}
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_specific_pass",
+        "critical_failure",
+        "useful_without_unnecessary_clarification",
+        "alternatives_warranted",
+        "alternatives_behaviorally_distinct"
+      ],
+      "properties": {
+        "case_specific_pass": {"type": "boolean"},
+        "critical_failure": {"type": "boolean"},
+        "useful_without_unnecessary_clarification": {"type": "boolean"},
+        "alternatives_warranted": {"type": "boolean"},
+        "alternatives_behaviorally_distinct": {"type": ["boolean", "null"]}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"alternatives_warranted": {"const": false}},
+            "required": ["alternatives_warranted"]
+          },
+          "then": {
+            "properties": {"alternatives_behaviorally_distinct": {"type": "null"}}
+          }
+        },
+        {
+          "if": {
+            "properties": {"alternatives_warranted": {"const": true}},
+            "required": ["alternatives_warranted"]
+          },
+          "then": {
+            "properties": {"alternatives_behaviorally_distinct": {"type": "boolean"}}
+          }
+        }
+      ]
+    },
+    "critique": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["screens_removed", "important_states_initially_missed", "changes"],
+      "properties": {
+        "screens_removed": {"type": "integer", "minimum": 0},
+        "important_states_initially_missed": {"type": "integer", "minimum": 0},
+        "changes": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task_success", "preference", "corrections"],
+      "properties": {
+        "task_success": {"type": ["boolean", "null"]},
+        "preference": {
+          "enum": ["wireframer", "baseline", "native_generator", "tie", "not_compared"]
+        },
+        "corrections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["category", "detail"],
+            "properties": {
+              "category": {"type": "string", "minLength": 1},
+              "detail": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    }
+  }
+}

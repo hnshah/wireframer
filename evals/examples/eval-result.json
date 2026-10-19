@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "eval_id": "eval-01",
+  "eval_type": "functional",
+  "run": {
+    "id": "2026-10-18-eval-01-wireframer-01",
+    "started_at": "2026-10-18T19:00:00Z",
+    "runtime": "grok-bot",
+    "model": "grok-4",
+    "skill_version": "0.2",
+    "condition": "wireframer",
+    "seed": null
+  },
+  "input": {
+    "prompt": "Wireframe a product where founders can see what all their AI agents are working on.",
+    "source": "canonical",
+    "reference_uris": []
+  },
+  "artifacts": [
+    {
+      "kind": "design_record",
+      "uri": "artifacts/eval-01/design-record.md",
+      "label": "Final design record"
+    },
+    {
+      "kind": "wireframe",
+      "uri": "artifacts/eval-01/wireframe.fig",
+      "label": "Editable wireframe"
+    }
+  ],
+  "rubric": {
+    "before_critique": {
+      "scores": {
+        "job_clarity": 12,
+        "interaction_model": 12,
+        "information_architecture": 8,
+        "task_efficiency": 8,
+        "hierarchy": 8,
+        "discoverability": 6,
+        "state_completeness": 6,
+        "error_and_recovery": 4,
+        "progressive_disclosure": 4,
+        "consistency": 4,
+        "ux_copy": 2,
+        "accessibility": 2,
+        "visual_restraint": 2
+      },
+      "total": 78
+    },
+    "after_critique": {
+      "scores": {
+        "job_clarity": 14,
+        "interaction_model": 14,
+        "information_architecture": 9,
+        "task_efficiency": 9,
+        "hierarchy": 9,
+        "discoverability": 7,
+        "state_completeness": 7,
+        "error_and_recovery": 5,
+        "progressive_disclosure": 5,
+        "consistency": 5,
+        "ux_copy": 3,
+        "accessibility": 2,
+        "visual_restraint": 1
+      },
+      "total": 90
+    }
+  },
+  "checks": {
+    "case_specific_pass": true,
+    "critical_failure": false,
+    "useful_without_unnecessary_clarification": true,
+    "alternatives_warranted": true,
+    "alternatives_behaviorally_distinct": true
+  },
+  "critique": {
+    "screens_removed": 1,
+    "important_states_initially_missed": 1,
+    "changes": [
+      "Replaced a generic activity dashboard with an exception-focused queue.",
+      "Added a recovery state for stalled agents."
+    ]
+  },
+  "review": {
+    "task_success": true,
+    "preference": "not_compared",
+    "corrections": []
+  },
+  "failure_categories": [],
+  "notes": "Example only; artifact paths are illustrative."
+}
