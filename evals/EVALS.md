@@ -1,6 +1,6 @@
 # Wireframer v0.2 Launch Candidate — initial evals
 
-Score each run against the 100-point Wireframer rubric and the case-specific checks below. Capture both the artifact and the reasoning record (facts, assumptions, chosen interaction model, state coverage, critique changes).
+Score each run against the 100-point Wireframer rubric and the case-specific checks below. Capture both the artifact and the reasoning record (facts, assumptions, chosen interaction model, state coverage, critique changes). Record each run with [`eval-result.schema.json`](./eval-result.schema.json) and validate it as described in the [eval README](./README.md).
 
 ## Eval 1 — Ambiguous founder idea
 
