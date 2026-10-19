@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "eval_id": "eval-invalid-missing-must",
+  "eval_type": "functional",
+  "title": "Invalid case missing acceptance criteria",
+  "prompt": "Wireframe an approval workflow.",
+  "fail_if": "The result provides no recovery path.",
+  "reference_uris": []
+}

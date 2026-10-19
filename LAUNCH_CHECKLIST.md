@@ -80,6 +80,7 @@
 - [ ] Public GitHub repository created.
 - [ ] README explains the product in <30 seconds.
 - [ ] Install/use instructions work from a fresh environment.
+- [ ] The runtime install smoke passes with the canonical version and untouched output recorded.
 - [ ] Public Grok Bot link included.
 - [ ] Figma Community link included when live.
 - [ ] Contribution path asks for reproducible failures.
