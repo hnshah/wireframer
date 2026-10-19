@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "eval_id": "eval-01",
+  "eval_type": "functional",
+  "title": "Ambiguous founder idea",
+  "prompt": "Wireframe a product where founders can see what all their AI agents are working on.",
+  "must": "Infer the core job rather than merely creating an agent directory; consider attention and exception handling; produce materially different models if ambiguity remains; choose one.",
+  "fail_if": "The default output is sidebar plus agent cards plus activity chart without explaining why that model fits.",
+  "reference_uris": [],
+  "tags": ["ambiguity", "interaction-model"]
+}
