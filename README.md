@@ -43,6 +43,7 @@ Wireframer makes those decisions explicit enough to inspect and improve. It trea
 - [`evals/EVALS.md`](./evals/EVALS.md) contains the canonical functional evals
 - [`evals/BENCHMARK.md`](./evals/BENCHMARK.md) defines the blind baseline comparison
 - [`evals/ADVERSARIAL.md`](./evals/ADVERSARIAL.md) contains instruction-pressure and anti-pattern tests
+- [`scripts/eval_runner.py`](./scripts/eval_runner.py) runs canonical prompts and generates launch-gate reports
 - [`LAUNCH_CHECKLIST.md`](./LAUNCH_CHECKLIST.md) defines the public release gates
 - [`ROADMAP.md`](./ROADMAP.md) describes the expansion path
 - [`references/REFERENCES.md`](./references/REFERENCES.md) records source methodologies and complementary skills
@@ -129,6 +130,29 @@ The first public release requires
 - a clean public Bot configuration with no private data or credentials
 
 The full protocol lives in [`evals/BENCHMARK.md`](./evals/BENCHMARK.md) and [`LAUNCH_CHECKLIST.md`](./LAUNCH_CHECKLIST.md).
+
+## Run the canonical evals
+
+The runtime-agnostic runner sends each prompt to a command on standard input and preserves raw output and execution metadata.
+
+```bash
+python3 scripts/eval_runner.py list
+python3 scripts/eval_runner.py run \
+  --command './your-runtime --mode wireframer' \
+  --runtime grok-bot --model grok-4 --skill-version 0.2 \
+  --output-dir evals/results
+```
+
+Review each `evals/results/eval-NN.json`, complete its rubric, checks, critique, and review fields, then generate both report formats:
+
+```bash
+python3 scripts/eval_runner.py report \
+  --results-dir evals/results \
+  --markdown evals/results/report.md \
+  --json evals/results/report.json
+```
+
+The report exits successfully only when all canonical cases are scored and every functional launch gate passes. Existing results are protected unless `--force` is supplied.
 
 ## Help improve Wireframer
 
