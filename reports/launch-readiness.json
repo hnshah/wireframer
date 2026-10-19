@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "product": "Wireframer",
+  "overall_status": "blocked",
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "unverified": 2,
+    "external_manual": 2
+  },
+  "checklist": {
+    "source": "LAUNCH_CHECKLIST.md",
+    "completed": 0,
+    "pending": 70,
+    "total": 70
+  },
+  "inputs": {
+    "skill": "SKILL.md",
+    "readme": "README.md",
+    "launch_checklist": "LAUNCH_CHECKLIST.md",
+    "eval_report": "not supplied"
+  },
+  "gates": [
+    {
+      "id": "canonical_skill",
+      "name": "Canonical versioned skill",
+      "status": "passed",
+      "evidence": [
+        "SKILL.md exists",
+        "version: 0.2-lc"
+      ],
+      "detail": "The canonical skill is present and versioned."
+    },
+    {
+      "id": "functional_eval_evidence",
+      "name": "Canonical functional eval evidence",
+      "status": "unverified",
+      "evidence": [
+        "evals/EVALS.md defines cases, but no result report was supplied"
+      ],
+      "detail": "Run the canonical eval suite and pass its machine-readable result report with --eval-report."
+    },
+    {
+      "id": "benchmark_evidence",
+      "name": "30-task blind benchmark evidence",
+      "status": "unverified",
+      "evidence": [
+        "evals/BENCHMARK.md defines the protocol; no benchmark result was supplied"
+      ],
+      "detail": "Supply 30 task-level results with at least 21 Wireframer wins."
+    },
+    {
+      "id": "public_grok_bot_link",
+      "name": "Public Grok Bot link",
+      "status": "failed",
+      "evidence": [
+        "**Public Grok Bot** `COMING_SOON`"
+      ],
+      "detail": "A real public URL must replace COMING_SOON before launch."
+    },
+    {
+      "id": "figma_community_link",
+      "name": "Figma Community link",
+      "status": "failed",
+      "evidence": [
+        "**Figma Community skill** `COMING_SOON`"
+      ],
+      "detail": "A real public URL must replace COMING_SOON before launch."
+    },
+    {
+      "id": "runtime_smoke_tests",
+      "name": "Fresh-session Grok and Figma smoke tests",
+      "status": "external_manual",
+      "evidence": [
+        "GROK_BOT_SETUP.md",
+        "FIGMA_SKILL_SETUP.md"
+      ],
+      "detail": "Run the documented smoke prompts in both hosted runtimes and preserve untouched outputs."
+    },
+    {
+      "id": "public_release_operations",
+      "name": "Public sharing, tag, demo, and launch operations",
+      "status": "external_manual",
+      "evidence": [
+        "LAUNCH_CHECKLIST.md sections G-J"
+      ],
+      "detail": "Verify sharing from clean accounts, publish the links, create the release tag, and capture the demo."
+    }
+  ]
+}

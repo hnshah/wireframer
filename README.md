@@ -52,6 +52,8 @@ It is an authored reference specimen for the method, not a benchmark result or e
 - [`evals/BENCHMARK.md`](./evals/BENCHMARK.md) defines the blind baseline comparison
 - [`evals/ADVERSARIAL.md`](./evals/ADVERSARIAL.md) contains instruction-pressure and anti-pattern tests
 - [`scripts/eval_runner.py`](./scripts/eval_runner.py) runs canonical prompts and generates launch-gate reports
+- [`scripts/launch_readiness.py`](./scripts/launch_readiness.py) rolls repository and eval evidence into a truthful launch decision
+- [`reports/launch-readiness.md`](./reports/launch-readiness.md) records the current evidence-backed launch status
 - [`LAUNCH_CHECKLIST.md`](./LAUNCH_CHECKLIST.md) defines the public release gates
 - [`ROADMAP.md`](./ROADMAP.md) describes the expansion path
 - [`references/REFERENCES.md`](./references/REFERENCES.md) records source methodologies and complementary skills
@@ -165,6 +167,19 @@ python3 scripts/eval_runner.py report \
 ```
 
 The report exits successfully only when all canonical cases are scored and every functional launch gate passes. Existing results are protected unless `--force` is supplied.
+
+## Check launch readiness
+
+Generate the evidence rollup after eval results or public links change:
+
+```bash
+python3 scripts/launch_readiness.py \
+  --repo-root . \
+  --json-output reports/launch-readiness.json \
+  --markdown-output reports/launch-readiness.md
+```
+
+Pass `--eval-report <path>` when a completed eval report exists. A nonzero exit is expected while any gate is failed, unverified, or external/manual. The tool does not infer that documentation or planned tests have actually been run.
 
 ## Help improve Wireframer
 
