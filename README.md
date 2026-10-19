@@ -40,6 +40,7 @@ Wireframer makes those decisions explicit enough to inspect and improve. It trea
 - [`BOT_PROFILE.md`](./BOT_PROFILE.md) contains the standing profile for the Grok Bot
 - [`GROK_BOT_SETUP.md`](./GROK_BOT_SETUP.md) covers Grok Bot setup and sharing
 - [`FIGMA_SKILL_SETUP.md`](./FIGMA_SKILL_SETUP.md) covers Figma Agent and Figma Make setup
+- [`RUNTIME_INSTALL_SMOKE.md`](./RUNTIME_INSTALL_SMOKE.md) verifies discovery, version, and core behavior after installation
 - [`evals/EVALS.md`](./evals/EVALS.md) contains the canonical functional evals
 - [`evals/BENCHMARK.md`](./evals/BENCHMARK.md) defines the blind baseline comparison
 - [`evals/ADVERSARIAL.md`](./evals/ADVERSARIAL.md) contains instruction-pressure and anti-pattern tests
@@ -98,6 +99,10 @@ The Grok Bot will use the same canonical Wireframer skill rather than a separate
 Figma custom skills accept a Markdown skill file. Upload [`SKILL.md`](./SKILL.md) as the Wireframer skill and follow [`FIGMA_SKILL_SETUP.md`](./FIGMA_SKILL_SETUP.md) for the test sequence.
 
 **Figma Community skill** `COMING_SOON`
+
+## Verify an installation
+
+After installing or updating Wireframer, run the shared fresh-session check in [`RUNTIME_INSTALL_SMOKE.md`](./RUNTIME_INSTALL_SMOKE.md). The smoke uses the same prompt and pass criteria across runtimes so a discovered file is not mistaken for a working installation.
 
 ## Design principles
 
