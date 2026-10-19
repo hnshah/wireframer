@@ -10,8 +10,13 @@ from jsonschema import Draft202012Validator
 
 
 ROOT = Path(__file__).resolve().parents[1]
+CASE_SCHEMA_PATH = ROOT / "evals" / "eval-case.schema.json"
+CASE_EXAMPLE_PATH = ROOT / "evals" / "examples" / "eval-case.json"
+INVALID_CASE_PATH = ROOT / "evals" / "examples" / "invalid" / "eval-case-missing-must.json"
 SCHEMA_PATH = ROOT / "evals" / "eval-result.schema.json"
 EXAMPLE_PATH = ROOT / "evals" / "examples" / "eval-result.json"
+INVALID_RESULT_PATH = ROOT / "evals" / "examples" / "invalid" / "eval-result-wrong-total.json"
+CASE_VALIDATOR_PATH = ROOT / "scripts" / "validate_eval_case.py"
 VALIDATOR_PATH = ROOT / "scripts" / "validate_eval_result.py"
 
 
@@ -103,6 +108,46 @@ class EvalResultSchemaTests(unittest.TestCase):
                 text=True,
                 check=False,
             )
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("does not equal dimension sum", result.stderr)
+
+    def test_case_schema_and_valid_fixture(self):
+        schema = json.loads(CASE_SCHEMA_PATH.read_text(encoding="utf-8"))
+        example = json.loads(CASE_EXAMPLE_PATH.read_text(encoding="utf-8"))
+
+        Draft202012Validator.check_schema(schema)
+        Draft202012Validator(schema).validate(example)
+
+    def test_case_validator_accepts_valid_fixture_and_rejects_invalid_fixture(self):
+        valid = subprocess.run(
+            [sys.executable, str(CASE_VALIDATOR_PATH), str(CASE_EXAMPLE_PATH)],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        invalid = subprocess.run(
+            [sys.executable, str(CASE_VALIDATOR_PATH), str(INVALID_CASE_PATH)],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+        self.assertEqual(valid.returncode, 0, valid.stderr)
+        self.assertIn("valid:", valid.stdout)
+        self.assertNotEqual(invalid.returncode, 0)
+        self.assertIn("'must' is a required property", invalid.stderr)
+
+    def test_result_validator_rejects_committed_invalid_fixture(self):
+        result = subprocess.run(
+            [sys.executable, str(VALIDATOR_PATH), str(INVALID_RESULT_PATH)],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
 
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("does not equal dimension sum", result.stderr)
